@@ -1,16 +1,18 @@
+package Servidor;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        ServerSocketcket servidor = new ServerSocket(12345);
+        ServerSocket servidor = new ServerSocket(12345);
         System.out.println("Porta 12345 aberta!");
-        Socketocket cliente = servidor.accept();
+        Socket cliente = servidor.accept();
 
         String ipCliente = cliente.getInetAddress().getHostAddress();
-        System.out.println("Nova conexão com o cliente " + ipCliente);
+        System.out.println("Nova conexção com o cliente " + ipCliente);
 
         Scanner scanner = new Scanner(cliente.getInputStream());
         while (scanner.hasNextLine()) {
