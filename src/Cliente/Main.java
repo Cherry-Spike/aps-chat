@@ -9,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		
-		Socket cliente = new Socket("127.0.0.1", 12345);
+		Socket cliente = new Socket("192.168.15.15", 12345);
 		System.out.println("O cliente se conectou ao servidor!");
 		
 		Scanner teclado = new Scanner(System.in);
