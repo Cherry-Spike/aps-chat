@@ -3,19 +3,16 @@ package Cliente;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.IO;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args){
 		
 		try {
-			Socket cliente = new Socket("127.0.0.1", 12345);
+			final Socket cliente = new Socket("127.0.0.1", 12345);
 			System.out.println("O cliente se conectou ao servidor!");
 			
 			//lendo mensagems do servidor
@@ -41,21 +38,18 @@ public class Main {
 			//escrevendo mensagems para o servidor
 			PrintWriter escritor = new PrintWriter(cliente.getOutputStream());
 			BufferedReader leitorDoTerminal = new BufferedReader(new InputStreamReader(System.in));
+			
 			while(true) {
 				String msgTerminal = leitorDoTerminal.readLine();
 				escritor.println(msgTerminal);
 			}
 			
-		}catch (UnknownHostException e){
-			
+		}catch (UnknownHostException e){			
 			System.out.println("O endereco e invalido");
-			e.printStackTrace();
-			
-		}catch (IOException e){
-			
+			e.printStackTrace();			
+		}catch (IOException e){		
 			System.out.println("O Servidor encontra-se indisponivel");
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 		}
 	}
 }

@@ -24,8 +24,8 @@ public class GerenciadorDeCliente extends Thread {
 			PrintWriter escritor = new PrintWriter(cliente.getOutputStream(), true);
 			escritor.println("Qual e o seu nome?");
 			String msg = leitor.readLine();
-			this.nomeCliente = msg;
-			escritor.println("Bem vindo " + this.nomeCliente);
+			nomeCliente = msg;
+			escritor.println("Bem vindo " + nomeCliente);
 			
 			while(true) {
 				msg = leitor.readLine();
