@@ -1,12 +1,14 @@
 package Servidor;
+import java.awt.EventQueue;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import View.BasePane;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
+        
         ServerSocket servidor = new ServerSocket(12345);
         System.out.println("Porta 12345 aberta!");
         Socket cliente = servidor.accept();
@@ -21,5 +23,6 @@ public class Main {
         scanner.close();
         servidor.close();
         cliente.close();
+        
     }
 }
