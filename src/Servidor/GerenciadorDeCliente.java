@@ -25,6 +25,7 @@ public class GerenciadorDeCliente extends Thread {
 			escritor.println("Qual e o seu nome?");
 			String msg = leitor.readLine();
 			this.nomeCliente = msg;
+			escritor.println("Bem vindo " + this.nomeCliente);
 			
 			while(true) {
 				msg = leitor.readLine();
@@ -37,7 +38,6 @@ public class GerenciadorDeCliente extends Thread {
 			e.printStackTrace();
 			
 		}
-		super.run();
 	}
 
 }

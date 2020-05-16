@@ -14,18 +14,14 @@ public class Main {
     		
     		servidor = new ServerSocket(12345);
     		System.out.println("Porta 12345 aberta!");
-            Socket cliente = servidor.accept();
-            String ipCliente = cliente.getInetAddress().getHostAddress();
-            System.out.println("Nova conexção com o cliente " + ipCliente);
 
-            Scanner scanner = new Scanner(cliente.getInputStream());
-            while (scanner.hasNextLine()) {
-                System.out.println(scanner.nextLine());
+            while (true) {
+            	Socket cliente = servidor.accept();
                 new GerenciadorDeCliente(cliente);
+                String ipCliente = cliente.getInetAddress().getHostAddress();
+                System.out.println("Nova conexção com o cliente " + ipCliente);
             }
-            scanner.close();
-            servidor.close();
-            cliente.close();
+
             
     	}catch (IOException e) {
     		
