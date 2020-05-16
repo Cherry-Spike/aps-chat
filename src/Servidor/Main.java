@@ -7,17 +7,19 @@ public class Main {
 	public static void main(String[] args) throws IOException {
     	
     	ServerSocket servidor = null;
+    	Socket cliente;
+    	int porta = 12345; 
     	
     	try {
     		
-    		servidor = new ServerSocket(12345);
-    		System.out.println("Porta 12345 aberta!");
+    		servidor = new ServerSocket(porta);
+    		System.out.println("Porta " + porta + " aberta!");
 
             while (true) {
-            	Socket cliente = servidor.accept();
-                new GerenciadorDeCliente(cliente);
+            	cliente = servidor.accept();
                 String ipCliente = cliente.getInetAddress().getHostAddress();
                 System.out.println("Nova conexção com o cliente " + ipCliente);
+                new GerenciadorDeCliente(cliente);
             }
 
             

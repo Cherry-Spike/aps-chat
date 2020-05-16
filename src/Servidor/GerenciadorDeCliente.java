@@ -14,22 +14,22 @@ public class GerenciadorDeCliente extends Thread {
 	public GerenciadorDeCliente(Socket cliente) {
 		this.cliente = cliente;
 		start();
-	}
+	}	
 	
 	@Override
 	public void run() {
 		try {
 			
 			BufferedReader leitor = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-			PrintWriter escritor = new PrintWriter(cliente.getOutputStream(), true);
+			PrintWriter escritor = new PrintWriter(cliente.getOutputStream(), true); /*PRESTAR ATENCAO NO AUTOFLUSH*/
 			escritor.println("Qual e o seu nome?");
 			String msg = leitor.readLine();
-			nomeCliente = msg;
-			escritor.println("Bem vindo " + nomeCliente);
+			this.nomeCliente = msg;
+			escritor.println("Bem vindo (" + this.nomeCliente + ")" + " escreva alguma coisa!");
 			
 			while(true) {
 				msg = leitor.readLine();
-				escritor.println("Voce disse:" + msg);
+				escritor.println("Voce disse: " + msg);
 			}
 			
 		} catch (IOException e) {

@@ -11,9 +11,12 @@ public class Main {
 
 	public static void main(String[] args){
 		
+		String IP = "127.0.0.1";
+		int porta = 12345;
+		
 		try {
-			final Socket cliente = new Socket("127.0.0.1", 12345);
-			System.out.println("O cliente se conectou ao servidor!");
+			final Socket cliente = new Socket(IP, porta);
+			System.out.println("Voce se conectou ao servidor!");
 			
 			//lendo mensagems do servidor
 			new Thread() {
@@ -25,7 +28,7 @@ public class Main {
 						
 						while(true) {
 							String mensagem = leitor.readLine();
-							System.out.println("O Servidor disse: " + mensagem);
+							System.out.println(mensagem);
 						}
 						
 					} catch (IOException e) {
@@ -36,11 +39,11 @@ public class Main {
 			}.start();
 			
 			//escrevendo mensagems para o servidor
-			PrintWriter escritor = new PrintWriter(cliente.getOutputStream());
+			PrintWriter escritor = new PrintWriter(cliente.getOutputStream(), true); /*PRESTAR ATENCAO NO AUTOFLUSH*/
 			BufferedReader leitorDoTerminal = new BufferedReader(new InputStreamReader(System.in));
+			String msgTerminal = "";
 			
-			while(true) {
-				String msgTerminal = leitorDoTerminal.readLine();
+			while((msgTerminal = leitorDoTerminal.readLine()) != null) {
 				escritor.println(msgTerminal);
 			}
 			
