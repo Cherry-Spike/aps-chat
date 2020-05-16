@@ -29,7 +29,7 @@ public class GerenciadorDeCliente extends Thread {
 			
 			while(true) {
 				msg = leitor.readLine();
-				escritor.println("Voce disse: " + msg);
+				escritor.println(nomeCliente + " disse: " + msg);
 			}
 			
 		} catch (IOException e) {
