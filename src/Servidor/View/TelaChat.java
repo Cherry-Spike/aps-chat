@@ -30,12 +30,12 @@ public class TelaChat {
 		
 		JTextArea chat = new JTextArea();
 		JScrollPane scrollChat = new JScrollPane(chat);
-		chat.setBounds(250, 20, 630, 370);
+		chat.setBounds(250, 20, 650, 370);
 		chat.setEditable(false);
 		contentPane.add(chat);
 		
 		JTextArea digitacao = new JTextArea();
-		digitacao.setBounds(250, 410, 550, 90);
+		digitacao.setBounds(250, 410, 550, 110);
 		contentPane.add(digitacao);
 		
 		JTextArea conectados = new JTextArea();
@@ -44,7 +44,7 @@ public class TelaChat {
 		contentPane.add(conectados);
 		
 		JButton enviar = new JButton("ENVIAR");
-		enviar.setBounds(810, 410, 90, 100);
+		enviar.setBounds(810, 410, 90, 110);
 		enviar.setFont(new Font("Arial", Font.BOLD, 15));
 		contentPane.add(enviar);
 		
