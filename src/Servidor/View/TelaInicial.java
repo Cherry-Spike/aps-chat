@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class TelaInicial{
@@ -58,10 +59,10 @@ public class TelaInicial{
 		try {
 			recebePorta = new JFormattedTextField(validador.MaskPorta());
 			recebePorta.setBounds(370, 180, 200, 30);
-	        recebePorta.setHorizontalAlignment(recebePorta.CENTER);
+	        recebePorta.setHorizontalAlignment(SwingConstants.CENTER);
 	        contentPane.add(recebePorta);
 		} catch (ParseException e) {
-			System.out.println("deu merda");
+			System.out.println("Dados Invalidos");
 			e.printStackTrace();
 		}
         
@@ -70,11 +71,11 @@ public class TelaInicial{
 		try {
 			recebeIp = new JFormattedTextField(validador.MaskIp());
 			  recebeIp.setBounds(370, 220, 200, 30);
-		      recebeIp .setHorizontalAlignment(recebeIp.CENTER);
+		      recebeIp .setHorizontalAlignment(SwingConstants.CENTER);
 		      contentPane.add(recebeIp);
 		        
 		} catch (ParseException e) {
-			System.out.println("deu merda");
+			System.out.println("Dados Invalidos");
 			e.printStackTrace();
 		}
       
