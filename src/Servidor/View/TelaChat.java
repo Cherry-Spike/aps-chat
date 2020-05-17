@@ -2,13 +2,11 @@ package Servidor.View;
 
 import java.awt.Font;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.Scrollable;
 import javax.swing.border.EmptyBorder;
 
 public class TelaChat {
@@ -75,9 +73,16 @@ public class TelaChat {
 		enviar.addActionListener(e -> {
 			
 			String msg = digitacao.getText();
-			chat.append(msg);
 			
-		});
+				digitacao.setText("");
+				if(msg == null || msg == "") {
+					chat.append(null);
+				}
+				else {
+				chat.append(msg + "\n");
+				}
+				
+			});
 		
 		
 		basePane.add(contentPane);
