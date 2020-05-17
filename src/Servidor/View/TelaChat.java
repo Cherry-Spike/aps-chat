@@ -75,12 +75,7 @@ public class TelaChat {
 			String msg = digitacao.getText();
 			
 				digitacao.setText("");
-				if(msg == null || msg == "") {
-					chat.append(null);
-				}
-				else {
 				chat.append(msg + "\n");
-				}
 				
 			});
 		
