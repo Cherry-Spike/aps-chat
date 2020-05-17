@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class Main {
+public class ClienteSkt {
 
 	public static void main(String[] args){
 		
@@ -45,6 +45,9 @@ public class Main {
 			
 			while((msgTerminal = leitorDoTerminal.readLine()) != null) {
 				escritor.println(msgTerminal);
+				if (msgTerminal.equalsIgnoreCase("/sair")) {
+					System.exit(0);
+				}
 			}
 			
 		}catch (UnknownHostException e){			

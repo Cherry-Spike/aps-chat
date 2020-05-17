@@ -29,13 +29,16 @@ public class GerenciadorDeCliente extends Thread {
 			
 			while(true) {
 				msg = leitor.readLine();
-				escritor.println(nomeCliente + " disse: " + msg);
+				if (msg.equalsIgnoreCase("/sair")) {
+					this.cliente.close();
+				}else {
+					escritor.println(nomeCliente + " disse: " + msg);
+				}
 			}
 			
 		} catch (IOException e) {
 			
 			System.err.println("O cliente fechou a conexao");
-			e.printStackTrace();
 			
 		}
 	}
