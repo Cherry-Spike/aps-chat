@@ -7,10 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-//import com.sun.istack.internal.logging.Logger;
 
 public class BasePane extends JFrame{
-	//private static final Logger LOGGER = Logger.getLogger(BasePane.class.getName(), null);
+	
 	public static JPanel basePane;
 	
 	public BasePane() throws ParseException {
@@ -31,7 +30,7 @@ public static void main(String[] args) {
             	BasePane frame = new BasePane();
                 frame.setVisible(true);
             } catch (Exception e) {
-               // LOGGER.info(e.getMessage());
+               
             }
 		});
 	}
