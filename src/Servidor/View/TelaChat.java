@@ -3,6 +3,7 @@ package Servidor.View;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -29,15 +30,18 @@ public class TelaChat {
 		contentPane.setBounds(0, 0, 940, 580);
 		
 		JTextArea chat = new JTextArea();
-		JScrollPane scrollChat = new JScrollPane(chat);
 		chat.setBounds(250, 20, 650, 370);
+		chat.setFont(new Font("Arial", Font.PLAIN, 20));
 		chat.setEditable(false);
 		contentPane.add(chat);
 		
 		JTextArea digitacao = new JTextArea();
+		JScrollPane scroll = new JScrollPane(digitacao);
 		digitacao.setBounds(250, 410, 550, 110);
+		digitacao.setFont(new Font("Arial", Font.PLAIN, 20));
+		digitacao.setLineWrap(true);
 		contentPane.add(digitacao);
-		
+				
 		JTextArea conectados = new JTextArea();
 		conectados.setBounds(20, 20, 220, 500);
 		conectados.setEditable(false);

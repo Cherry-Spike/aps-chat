@@ -58,7 +58,7 @@ public class TelaInicial{
 		try {
 			recebePorta = new JFormattedTextField(validador.MaskPorta());
 			recebePorta.setBounds(370, 180, 200, 30);
-	        recebePorta .setHorizontalAlignment(recebePorta.CENTER);
+	        recebePorta.setHorizontalAlignment(recebePorta.CENTER);
 	        contentPane.add(recebePorta);
 		} catch (ParseException e) {
 			System.out.println("deu merda");
