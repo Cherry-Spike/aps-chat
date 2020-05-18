@@ -21,6 +21,7 @@ public class TelaChat {
 		this.basePane = basePane;
 	}
 	
+	
 	public void setContentPane() {
 		
 		//Definição de Componentes
