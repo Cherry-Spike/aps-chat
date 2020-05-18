@@ -19,6 +19,7 @@ public class BasePane extends JFrame{
         basePane.setBorder(new EmptyBorder(5, 5, 5, 5));
         basePane.setLayout(null);
         setContentPane(basePane);
+        setLocation(null);
         setResizable(false);
         setTitle("Cherry Spike Chat");
         new TelaInicial(basePane);
