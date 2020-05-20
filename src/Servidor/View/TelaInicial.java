@@ -1,18 +1,23 @@
 package Servidor.View;
 
 import java.awt.Font;
+import java.io.IOException;
 import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import Servidor.ServidorSkt;
 
 public class TelaInicial{
 	private JPanel basePane;
 	Validador validador = new Validador();
+	JFormattedTextField recebePorta;
+    JFormattedTextField recebeIp;
 	
 	public TelaInicial(JPanel basePane){
 		setPane(basePane);
@@ -47,15 +52,15 @@ public class TelaInicial{
 		contentPane.add(ip);
 		
 		//Action Listenes
-		botao.addActionListener(e -> {
+		botao.addActionListener(e -> {			
+
 			contentPane.setVisible(false);
-			new TelaChat(basePane, contentPane);
-			
+			//new TelaChat(basePane, contentPane);
+				
 		});
 		
 		
-		//Validador de caracteres
-		JFormattedTextField recebePorta;
+		//Validador de caracteres		
 		try {
 			recebePorta = new JFormattedTextField(validador.MaskPorta());
 			recebePorta.setBounds(370, 180, 200, 30);
@@ -65,9 +70,7 @@ public class TelaInicial{
 			System.out.println("Dados Invalidos");
 			e.printStackTrace();
 		}
-        
-           
-        JFormattedTextField recebeIp;
+                   
 		try {
 			recebeIp = new JFormattedTextField(validador.MaskIp());
 			  recebeIp.setBounds(370, 220, 200, 30);
@@ -83,6 +86,6 @@ public class TelaInicial{
 		basePane.add(contentPane);
 	}
 	
-	
+	/*GET & SET*/
 	
 }

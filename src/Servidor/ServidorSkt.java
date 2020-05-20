@@ -1,24 +1,37 @@
 package Servidor;
+import java.awt.EventQueue;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import javax.swing.JFrame;
+import Servidor.View.BasePane;
+import Servidor.View.TelaChat;
 
-public class ServidorSkt {
-	public static void main(String[] args) throws IOException {
-    	
+public class ServidorSkt extends JFrame{
+	
+public static void main(String[] args) throws IOException {
+	
+		EventQueue.invokeLater(() ->{
+	        try {
+	        	BasePane frame = new BasePane();
+	            frame.setVisible(true);
+	        } catch (Exception e) {
+	           
+	        }
+		});
+				
     	ServerSocket servidor = null;
     	Socket cliente;
-    	int porta = 12345; 
-    	
+    	  	
     	try {
     		
-    		servidor = new ServerSocket(porta);
-    		System.out.println("Porta " + porta + " aberta!");
+    		servidor = new ServerSocket(12345);
+    		System.out.println("Porta " + 12345 + " aberta!");
 
             while (true) {
             	cliente = servidor.accept();
                 String ipCliente = cliente.getInetAddress().getHostAddress();
-                System.out.println("Nova conexção com o cliente " + ipCliente);
+                TelaChat.getChat().append("Nova conexao com o cliente " + ipCliente + "\n");
                 new GerenciadorDeCliente(cliente);
             }
 
