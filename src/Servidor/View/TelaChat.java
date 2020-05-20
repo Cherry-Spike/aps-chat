@@ -3,6 +3,7 @@ package Servidor.View;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -14,10 +15,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class TelaChat {
+	
 	private JPanel basePane;
 	private static JPanel contentPane;
 	private static JTextArea chat;
-	private JList<String> liUsuarios;
+	private static JList<String> liUsuarios;
 	
 	public TelaChat(JPanel basePane, JPanel contentPane) throws IOException {
 		setPane(basePane);
@@ -62,8 +64,7 @@ public class TelaChat {
 		conectados.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		conectados.setEditable(false);
 		
-		String[] test = {"teste", "teste2", "teste3"};
-		liUsuarios = new JList<String>(test);
+		liUsuarios = new JList<String>(new DefaultListModel<String>());
 		liUsuarios.setBounds(25, 60, 150, 150);
 		liUsuarios.setFont(new Font("Arial", Font.BOLD, 15));
 		liUsuarios.setBorder(new LineBorder(Color.BLACK));
@@ -79,7 +80,7 @@ public class TelaChat {
 		JScrollPane scrollConx = new JScrollPane(liUsuarios);
 		scrollConx.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollConx.setBorder(new LineBorder(Color.BLACK));
-		scrollConx.setBounds(30, 60, 160, 420);
+		scrollConx.setBounds(0, 60, 220, 440);
 		conectados.add(scrollConx);
 		contentPane.add(conectados);		
 				
@@ -106,5 +107,9 @@ public class TelaChat {
 	/*GET & SET*/
 	public static JTextArea getChat() {
 		return chat;
+	}
+
+	public static JList<String> getLiUsuarios() {
+		return liUsuarios;
 	}
 }

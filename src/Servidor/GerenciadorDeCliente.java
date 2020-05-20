@@ -8,12 +8,15 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+import Servidor.View.TelaChat;
+
 public class GerenciadorDeCliente extends Thread {
 	
 	private Socket cliente;
 	private String nomeCliente;
 	private BufferedReader leitor;
 	private PrintWriter escritor;
+	private BuscaCliente buscaCliente = new BuscaCliente();
 	private static final Map<String, GerenciadorDeCliente> usuarios = new HashMap<String, GerenciadorDeCliente>();
 
 	public GerenciadorDeCliente(Socket cliente) {
@@ -33,6 +36,8 @@ public class GerenciadorDeCliente extends Thread {
 			this.nomeCliente = msg;
 			escritor.println("Bem vindo (" + this.nomeCliente + ")" + " escreva alguma coisa!");
 			usuarios.put(this.nomeCliente, this);
+			buscaCliente.setListaCliente(TelaChat.getLiUsuarios());
+			buscaCliente.adicionarNomeCliente(nomeCliente);
 			
 			while(true) {
 				
