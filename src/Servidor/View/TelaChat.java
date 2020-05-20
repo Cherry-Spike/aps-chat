@@ -1,5 +1,6 @@
 package Servidor.View;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 import javax.swing.JButton;
@@ -10,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class TelaChat {
 	private JPanel basePane;
@@ -37,6 +39,7 @@ public class TelaChat {
 		chat = new JTextArea();
 		getChat().setBounds(250, 20, 650, 370);
 		getChat().setFont(new Font("Arial", Font.PLAIN, 20));
+		getChat().setBorder(new LineBorder(Color.LIGHT_GRAY));
 		getChat().setEditable(false);
 		getChat().setLineWrap(true);
 		JScrollPane scrollChat = new JScrollPane(getChat());
@@ -47,6 +50,7 @@ public class TelaChat {
 		JTextArea digitacao = new JTextArea();
 		digitacao.setBounds(250, 410, 550, 110);
 		digitacao.setFont(new Font("Arial", Font.PLAIN, 20));
+		digitacao.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		digitacao.setLineWrap(true);
 		JScrollPane scrollDig = new JScrollPane(digitacao);
 		scrollDig.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -55,22 +59,26 @@ public class TelaChat {
 				
 		JTextArea conectados = new JTextArea();
 		conectados.setBounds(20, 20, 220, 500);
+		conectados.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		conectados.setEditable(false);
 		
 		String[] test = {"teste", "teste2", "teste3"};
 		liUsuarios = new JList<String>(test);
 		liUsuarios.setBounds(25, 60, 150, 150);
 		liUsuarios.setFont(new Font("Arial", Font.BOLD, 15));
+		liUsuarios.setBorder(new LineBorder(Color.BLACK));
 		conectados.add(liUsuarios);
 		
 		JLabel lbConx = new JLabel("Conectados:");
 		lbConx.setBounds(60, 13, 90, 40);
 		lbConx.setFont(new Font("Arial", Font.BOLD, 15));
+		
 		conectados.add(lbConx);
 		//contentPane.add(conectados);
 		
 		JScrollPane scrollConx = new JScrollPane(liUsuarios);
 		scrollConx.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollConx.setBorder(new LineBorder(Color.BLACK));
 		scrollConx.setBounds(30, 60, 160, 420);
 		conectados.add(scrollConx);
 		contentPane.add(conectados);		
