@@ -16,7 +16,7 @@ public class GerenciadorDeCliente extends Thread {
 	private String nomeCliente;
 	private BufferedReader leitor;
 	private PrintWriter escritor;
-	private BuscaCliente buscaCliente = new BuscaCliente();
+	private BuscaUsuario buscaUsuario = new BuscaUsuario();
 	private static final Map<String, GerenciadorDeCliente> usuarios = new HashMap<String, GerenciadorDeCliente>();
 
 	public GerenciadorDeCliente(Socket cliente) {
@@ -36,8 +36,8 @@ public class GerenciadorDeCliente extends Thread {
 			this.nomeCliente = msg;
 			escritor.println("Bem vindo (" + this.nomeCliente + ")" + " escreva alguma coisa!");
 			usuarios.put(this.nomeCliente, this);
-			buscaCliente.setListaCliente(TelaChat.getLiUsuarios());
-			buscaCliente.adicionarNomeCliente(nomeCliente);
+			buscaUsuario.setListaUsuario(TelaChat.getLiUsuarios());
+			buscaUsuario.adicionarNomeUsuario(nomeCliente);
 			
 			while(true) {
 				
@@ -73,6 +73,9 @@ public class GerenciadorDeCliente extends Thread {
 		} catch (IOException e) {
 			
 			System.err.println("O cliente fechou a conexao");
+			buscaUsuario.removeUsuario(TelaChat.getLiUsuarios(), nomeCliente);
+			String ip = cliente.getInetAddress().getHostAddress();
+			TelaChat.getChat().append("O cliente " + ip + " fechou a conexao\n");
 			
 		}
 	}
