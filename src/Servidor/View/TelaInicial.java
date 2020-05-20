@@ -1,17 +1,13 @@
 package Servidor.View;
 
 import java.awt.Font;
-import java.io.IOException;
 import java.text.ParseException;
-
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import Servidor.ServidorSkt;
 
 public class TelaInicial{
 	private JPanel basePane;

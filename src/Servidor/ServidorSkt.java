@@ -9,6 +9,8 @@ import Servidor.View.TelaChat;
 
 public class ServidorSkt extends JFrame{
 	
+	private static final long serialVersionUID = 3950237304191104946L;
+
 public static void main(String[] args) throws IOException {
 	
 		EventQueue.invokeLater(() ->{

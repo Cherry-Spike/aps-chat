@@ -1,17 +1,15 @@
 package Servidor.View;
 
-import java.awt.EventQueue;
 import java.io.IOException;
 import java.text.ParseException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Servidor.ServidorSkt;
-
 
 public class BasePane extends JFrame{
 	
+	private static final long serialVersionUID = 1L;
 	public static JPanel basePane;
 	
 	public BasePane() throws ParseException, IOException {

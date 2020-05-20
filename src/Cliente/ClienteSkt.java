@@ -9,13 +9,15 @@ import java.net.UnknownHostException;
 
 public class ClienteSkt {
 
+	private static Socket cliente;
+
 	public static void main(String[] args){
 		
 		String IP = "127.0.0.1";
 		int porta = 12345;
 		
 		try {
-			final Socket cliente = new Socket(IP, porta);
+			cliente = new Socket(IP, porta);
 			System.out.println("Voce se conectou ao servidor!");
 			
 			//lendo mensagems do servidor
