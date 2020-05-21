@@ -13,8 +13,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import sun.invoke.empty.Empty;
-
 public class TelaChatCliente {
 	
 	private JPanel basePane;

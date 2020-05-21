@@ -1,37 +1,27 @@
 package Cliente;
 
-import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import javax.swing.JFrame;
-import Cliente.View.BasePaneCliente;
 
-public class ClienteSkt extends JFrame{
+import Cliente.View.TelaChatCliente;
+import Cliente.View.TelaInicialCliente;
 
-	private static final long serialVersionUID = 3105562055276069363L;
+public class ClienteSkt {
+
 	private static Socket cliente;
 
 	public static void main(String[] args){
 		
-		EventQueue.invokeLater(() ->{
-	        try {
-	        	BasePaneCliente frame = new BasePaneCliente();
-	            frame.setVisible(true);
-	        } catch (Exception e) {
-	           
-	        }
-		});
-		
 		String IP = "127.0.0.1";
-		int porta = 12345;				
+		int porta = TelaInicialCliente.getRecebePorta();
 		
 		try {
 			cliente = new Socket(IP, porta);
-			System.out.println("Voce se conectou ao servidor!");
+			TelaChatCliente.getChat().append("Voce se conectou ao servidor!\n");
 			
 			//lendo mensagems do servidor
 			new Thread() {
@@ -43,10 +33,12 @@ public class ClienteSkt extends JFrame{
 						
 						while(true) {
 							String mensagem = leitor.readLine();
+							TelaChatCliente.getChat().append(mensagem);
 							System.out.println(mensagem);
 						}
 						
 					} catch (IOException e) {
+						TelaChatCliente.getChat().append("Nao e possivel receber a mensagem do servidor");
 						System.out.println("Nao e possivel receber a mensagem do servidor");
 						e.printStackTrace();
 					} 

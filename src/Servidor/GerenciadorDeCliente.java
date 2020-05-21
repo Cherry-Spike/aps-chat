@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+import Cliente.View.TelaChatCliente;
 import Servidor.View.TelaChat;
 
 public class GerenciadorDeCliente extends Thread {
@@ -17,6 +18,7 @@ public class GerenciadorDeCliente extends Thread {
 	private BufferedReader leitor;
 	private PrintWriter escritor;
 	private BuscaUsuario buscaUsuario = new BuscaUsuario();
+	private BuscaUsuario buscaUsuarioCliente = new BuscaUsuario();
 	private static final Map<String, GerenciadorDeCliente> usuarios = new HashMap<String, GerenciadorDeCliente>();
 
 	public GerenciadorDeCliente(Socket cliente) {
@@ -31,13 +33,15 @@ public class GerenciadorDeCliente extends Thread {
 		try {
 			leitor = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 			escritor = new PrintWriter(cliente.getOutputStream(), true); /*PRESTAR ATENCAO NO AUTOFLUSH*/
-			escritor.println("Qual e o seu nome?");
+			escritor.println("Qual e o seu nome?\n");
 			String msg = leitor.readLine();
 			this.nomeCliente = msg;
-			escritor.println("Bem vindo (" + this.nomeCliente + ")" + " escreva alguma coisa!");
+			escritor.println("Bem vindo (" + this.nomeCliente + ")" + " escreva alguma coisa!\n");
 			usuarios.put(this.nomeCliente, this);
 			buscaUsuario.setListaUsuario(TelaChat.getLiUsuarios());
 			buscaUsuario.adicionarNomeUsuario(nomeCliente);
+			//buscaUsuarioCliente.setListaUsuario(TelaChatCliente.getLiUsuarios());
+			//buscaUsuarioCliente.adicionarNomeUsuario(nomeCliente);
 			
 			while(true) {
 				
@@ -74,6 +78,7 @@ public class GerenciadorDeCliente extends Thread {
 			
 			System.err.println("O cliente fechou a conexao");
 			buscaUsuario.removeUsuario(TelaChat.getLiUsuarios(), nomeCliente);
+			buscaUsuario.removeUsuario(TelaChatCliente.getLiUsuarios(), nomeCliente);
 			String ip = cliente.getInetAddress().getHostAddress();
 			TelaChat.getChat().append("O cliente " + ip + " fechou a conexao\n");
 			

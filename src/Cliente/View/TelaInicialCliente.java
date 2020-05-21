@@ -9,11 +9,14 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import Cliente.ClienteSkt;
+
 public class TelaInicialCliente{
+
 	private JPanel basePane;
 	ValidadorCliente validador = new ValidadorCliente();
-	JFormattedTextField recebePorta;
-    JFormattedTextField recebeIp;
+	private static JFormattedTextField recebePorta;
+    private static JFormattedTextField recebeIp;
 	
 	public TelaInicialCliente(JPanel basePane){
 		setPane(basePane);
@@ -42,21 +45,22 @@ public class TelaInicialCliente{
 		porta.setFont(new Font("Arial", Font.BOLD, 30));
 		contentPane.add(porta);
 		
-		JLabel ip = new JLabel("IP:");
-		ip.setBounds(310, 180, 60, 100);
-		ip.setFont(new Font("Arial", Font.BOLD, 30));
-		contentPane.add(ip);
-		
 		//Action Listenes
 		botao.addActionListener(e -> {			
 			
+			new Thread() {
+				@Override
+				public void run() {
+					new ClienteSkt();
+					ClienteSkt.main(null); 
+				}
+			}.start();
 			
 			contentPane.setVisible(false);
 			new TelaChatCliente(basePane, contentPane);
 				
 		});
-		
-		
+				
 		//Validador de caracteres		
 		try {
 			recebePorta = new JFormattedTextField(validador.MaskPorta());
@@ -66,25 +70,19 @@ public class TelaInicialCliente{
 		} catch (ParseException e) {
 			System.out.println("Dados Invalidos");
 			e.printStackTrace();
-		}
-                   
-		try {
-			recebeIp = new JFormattedTextField(validador.MaskIp());
-			  recebeIp.setBounds(370, 220, 200, 30);
-		      recebeIp .setHorizontalAlignment(SwingConstants.CENTER);
-		      contentPane.add(recebeIp);
-		        
-		} catch (ParseException e) {
-			System.out.println("Dados Invalidos");
-			e.printStackTrace();
-		}
-      
+		}         
 		
 		basePane.add(contentPane);
 	}
-	
+
 	/*GET & SET*/
 	
-	
+	public static int getRecebePorta() {
+		return Integer.parseInt(recebePorta.getText());
+	}
+
+	public static String getRecebeIp() {
+		return recebeIp.getText();
+	}
 	
 }
