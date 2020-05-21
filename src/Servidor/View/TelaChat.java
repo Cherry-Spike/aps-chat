@@ -95,10 +95,14 @@ public class TelaChat {
 			
 			String msg = digitacao.getText();
 			
+			if(msg.isEmpty()) {
+				digitacao.setText("");
+			}else {
 				digitacao.setText("");
 				getChat().append(msg + "\n");
+			}
 				
-			});
+		});
 		    		
 		basePane.add(contentPane);
 		

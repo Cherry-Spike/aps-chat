@@ -13,6 +13,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import sun.invoke.empty.Empty;
+
 public class TelaChatCliente {
 	
 	private JPanel basePane;
@@ -88,16 +90,18 @@ public class TelaChatCliente {
 		enviar.setFont(new Font("Arial", Font.BOLD, 15));
 		contentPane.add(enviar);
 		
-		//getChat().append("Porta " + 12345 + " aberta!\n");
-		
 		enviar.addActionListener(e -> {
 			
 			String msg = digitacao.getText();
 			
+			if(msg.isEmpty()) {
+				digitacao.setText("");
+			}else {
 				digitacao.setText("");
 				getChat().append(msg + "\n");
+			}
 				
-			});
+		});
 		    		
 		basePane.add(contentPane);
 		
