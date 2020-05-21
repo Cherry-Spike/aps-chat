@@ -1,20 +1,33 @@
 package Cliente;
 
+import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import javax.swing.JFrame;
+import Cliente.View.BasePaneCliente;
 
-public class ClienteSkt {
+public class ClienteSkt extends JFrame{
 
+	private static final long serialVersionUID = 3105562055276069363L;
 	private static Socket cliente;
 
 	public static void main(String[] args){
 		
+		EventQueue.invokeLater(() ->{
+	        try {
+	        	BasePaneCliente frame = new BasePaneCliente();
+	            frame.setVisible(true);
+	        } catch (Exception e) {
+	           
+	        }
+		});
+		
 		String IP = "127.0.0.1";
-		int porta = 12345;
+		int porta = 12345;				
 		
 		try {
 			cliente = new Socket(IP, porta);
