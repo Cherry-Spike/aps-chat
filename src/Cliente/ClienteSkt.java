@@ -57,7 +57,7 @@ public class ClienteSkt {
 			e.printStackTrace();			
 		}catch (IOException e){		
 			System.out.println("O Servidor encontra-se indisponivel");
-			e.printStackTrace();			
+			e.printStackTrace();
 		}
 	}
 }
