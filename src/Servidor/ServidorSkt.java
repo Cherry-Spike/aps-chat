@@ -34,7 +34,7 @@ public static void main(String[] args) throws IOException {
             	cliente = servidor.accept();
                 String ipCliente = cliente.getInetAddress().getHostAddress();
                 TelaChat.getChat().append("Nova conexao com o cliente " + ipCliente + "\n");
-                new GerenciadorDeCliente(cliente);
+                new GerenciadorServidor(cliente);
             }
 
             

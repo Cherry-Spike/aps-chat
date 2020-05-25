@@ -30,7 +30,7 @@ public class TelaChat {
 		this.basePane = basePane;
 	}
 	
-	public void setContentPane() throws IOException{
+	public void setContentPane(){
 		
 		//Defini鈬o de Componentes
 		contentPane = new JPanel();

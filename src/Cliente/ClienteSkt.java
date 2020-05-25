@@ -3,12 +3,13 @@ package Cliente;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
 import Cliente.View.TelaChatCliente;
 import Cliente.View.TelaInicialCliente;
+import Servidor.BuscaUsuario;
 
 public class ClienteSkt {
 
@@ -30,14 +31,18 @@ public class ClienteSkt {
 					try {
 						
 						BufferedReader leitor = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-						
+						ObjectInputStream objEntrada = new ObjectInputStream(cliente.getInputStream());
+						BuscaUsuario buscaUsuario = new BuscaUsuario();
+											
 						while(true) {
 							String mensagem = leitor.readLine();
-							TelaChatCliente.getChat().append(mensagem);
+							TelaChatCliente.getChat().append(mensagem + "\n");
 							System.out.println(mensagem);
+							buscaUsuario = (BuscaUsuario) objEntrada.readObject();
+							TelaChatCliente.setClienteLi(buscaUsuario.getListaUsuario());
 						}
 						
-					} catch (IOException e) {
+					} catch (IOException | ClassNotFoundException e) {
 						TelaChatCliente.getChat().append("Nao e possivel receber a mensagem do servidor");
 						System.out.println("Nao e possivel receber a mensagem do servidor");
 						e.printStackTrace();
@@ -49,6 +54,9 @@ public class ClienteSkt {
 			PrintWriter escritor = new PrintWriter(cliente.getOutputStream(), true); /*PRESTAR ATENCAO NO AUTOFLUSH*/
 			BufferedReader leitorDoTerminal = new BufferedReader(new InputStreamReader(System.in));
 			String msgTerminal = "";
+			
+			//buscaUsuario.setListaUsuario(TelaChatCliente.getClienteLi());
+			//buscaUsuario.adicionarNomeUsuario(msgTerminal);
 			
 			while((msgTerminal = leitorDoTerminal.readLine()) != null) {
 				escritor.println(msgTerminal);

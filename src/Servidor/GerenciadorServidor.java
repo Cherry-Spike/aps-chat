@@ -3,25 +3,24 @@ package Servidor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-
-import Cliente.View.TelaChatCliente;
 import Servidor.View.TelaChat;
 
-public class GerenciadorDeCliente extends Thread {
+public class GerenciadorServidor extends Thread {
 	
 	private Socket cliente;
 	private String nomeCliente;
 	private BufferedReader leitor;
 	private PrintWriter escritor;
+	private ObjectOutputStream objSaida;
 	private BuscaUsuario buscaUsuario = new BuscaUsuario();
-	private BuscaUsuario buscaUsuarioCliente = new BuscaUsuario();
-	private static final Map<String, GerenciadorDeCliente> usuarios = new HashMap<String, GerenciadorDeCliente>();
+	private static final Map<String, GerenciadorServidor> usuarios = new HashMap<String, GerenciadorServidor>();
 
-	public GerenciadorDeCliente(Socket cliente) {
+	public GerenciadorServidor(Socket cliente) {
 		this.cliente = cliente;
 		start();
 	}
@@ -33,15 +32,15 @@ public class GerenciadorDeCliente extends Thread {
 		try {
 			leitor = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 			escritor = new PrintWriter(cliente.getOutputStream(), true); /*PRESTAR ATENCAO NO AUTOFLUSH*/
-			escritor.println("Qual e o seu nome?\n");
+			objSaida = new ObjectOutputStream(cliente.getOutputStream());
+			escritor.println("Qual e o seu nome?");
 			String msg = leitor.readLine();
 			this.nomeCliente = msg;
-			escritor.println("Bem vindo (" + this.nomeCliente + ")" + " escreva alguma coisa!\n");
+			escritor.println("Bem vindo (" + this.nomeCliente + ")" + " escreva alguma coisa!");
 			usuarios.put(this.nomeCliente, this);
 			buscaUsuario.setListaUsuario(TelaChat.getLiUsuarios());
 			buscaUsuario.adicionarNomeUsuario(nomeCliente);
-			//buscaUsuarioCliente.setListaUsuario(TelaChatCliente.getLiUsuarios());
-			//buscaUsuarioCliente.adicionarNomeUsuario(nomeCliente);
+			objSaida.writeObject(buscaUsuario);
 			
 			while(true) {
 				
@@ -57,12 +56,12 @@ public class GerenciadorDeCliente extends Thread {
 					String[] mensagemPrivada = msg.split(" ", 2);
 					String nomeDestinatario = mensagemPrivada[0].substring(mensagemPrivada[0].lastIndexOf("/") + 1);
 					escritor.println("(" + this.nomeCliente + ") disse para (" + nomeDestinatario + "): " + mensagemPrivada[1]);
-					GerenciadorDeCliente destinatario = usuarios.get(nomeDestinatario);
+					GerenciadorServidor destinatario = usuarios.get(nomeDestinatario);
 					
 					if (destinatario == null) {
 						escritor.println("Usuario inexistente");
 					}else {
-						destinatario.getEscritor().println("(" + this.nomeCliente + ") disse: " + mensagemPrivada[1]);
+						destinatario.getEscritor().println("(" + this.nomeCliente + ") disse: " + mensagemPrivada[1] + "\n");
 					}
 					
 				}
@@ -78,7 +77,7 @@ public class GerenciadorDeCliente extends Thread {
 			
 			System.err.println("O cliente fechou a conexao");
 			buscaUsuario.removeUsuario(TelaChat.getLiUsuarios(), nomeCliente);
-			buscaUsuario.removeUsuario(TelaChatCliente.getLiUsuarios(), nomeCliente);
+			//buscaUsuario.removeUsuario(TelaChatCliente.getLiUsuarios(), nomeCliente);
 			String ip = cliente.getInetAddress().getHostAddress();
 			TelaChat.getChat().append("O cliente " + ip + " fechou a conexao\n");
 			

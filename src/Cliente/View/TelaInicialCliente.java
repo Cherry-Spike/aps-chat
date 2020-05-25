@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
 import Cliente.ClienteSkt;
 
 public class TelaInicialCliente{
@@ -48,6 +47,9 @@ public class TelaInicialCliente{
 		//Action Listenes
 		botao.addActionListener(e -> {			
 			
+			contentPane.setVisible(false);
+			new TelaChatCliente(basePane, contentPane);
+			
 			new Thread() {
 				@Override
 				public void run() {
@@ -55,9 +57,6 @@ public class TelaInicialCliente{
 					ClienteSkt.main(null); 
 				}
 			}.start();
-			
-			contentPane.setVisible(false);
-			new TelaChatCliente(basePane, contentPane);
 				
 		});
 				

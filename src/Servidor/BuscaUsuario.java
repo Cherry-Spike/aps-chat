@@ -1,10 +1,13 @@
 package Servidor;
 
+import java.io.Serializable;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
-public class BuscaUsuario {
+public class BuscaUsuario implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private JList<String> listaUsuario = new JList<String>(new DefaultListModel<String>());
 	
 	public void adicionarNomeUsuario(String nomeUsuario) {
@@ -29,7 +32,7 @@ public class BuscaUsuario {
 				b = false;
 			}
 			i++;
-		}		
+		}
 	}
 	
 }

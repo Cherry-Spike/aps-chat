@@ -18,7 +18,7 @@ public class TelaChatCliente {
 	private JPanel basePane;
 	private static JPanel contentPane;
 	private static JTextArea chat;
-	private static JList<String> liUsuarios;
+	private static JList<String> clienteLi;
 	
 	public TelaChatCliente(JPanel basePane, JPanel contentPane){
 		setPane(basePane);
@@ -63,11 +63,11 @@ public class TelaChatCliente {
 		conectados.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		conectados.setEditable(false);
 		
-		liUsuarios = new JList<String>(new DefaultListModel<String>());
-		liUsuarios.setBounds(25, 60, 150, 150);
-		liUsuarios.setFont(new Font("Arial", Font.BOLD, 15));
-		liUsuarios.setBorder(new LineBorder(Color.BLACK));
-		conectados.add(liUsuarios);
+		clienteLi = new JList<String>(new DefaultListModel<String>());
+		clienteLi.setBounds(25, 60, 150, 150);
+		clienteLi.setFont(new Font("Arial", Font.BOLD, 15));
+		clienteLi.setBorder(new LineBorder(Color.BLACK));
+		conectados.add(clienteLi);
 		
 		JLabel lbConx = new JLabel("Conectados:");
 		lbConx.setBounds(60, 13, 90, 40);
@@ -76,7 +76,7 @@ public class TelaChatCliente {
 		conectados.add(lbConx);
 		//contentPane.add(conectados);
 		
-		JScrollPane scrollConx = new JScrollPane(liUsuarios);
+		JScrollPane scrollConx = new JScrollPane(clienteLi);
 		scrollConx.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollConx.setBorder(new LineBorder(Color.BLACK));
 		scrollConx.setBounds(0, 60, 220, 440);
@@ -110,7 +110,11 @@ public class TelaChatCliente {
 		return chat;
 	}
 
-	public static JList<String> getLiUsuarios() {
-		return liUsuarios;
+	public static JList<String> getClienteLi() {
+		return clienteLi;
+	}
+
+	public static void setClienteLi(JList<String> listaUsuario) {
+		clienteLi = listaUsuario;	
 	}
 }
