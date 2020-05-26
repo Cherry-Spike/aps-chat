@@ -113,8 +113,4 @@ public class TelaChatCliente {
 	public static JList<String> getClienteLi() {
 		return clienteLi;
 	}
-
-	public static void setClienteLi(JList<String> listaUsuario) {
-		clienteLi = listaUsuario;	
-	}
 }

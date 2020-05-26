@@ -6,7 +6,6 @@ import java.text.ParseException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import Servidor.ServidorSkt;
 
 public class BasePaneCliente extends JFrame{
 	
@@ -36,18 +35,6 @@ public class BasePaneCliente extends JFrame{
 	           
 	        }
 		});
-	
-//		new Thread() {
-//			@Override
-//			public void run() {
-//				new ServidorSkt();
-//				try {
-//					ServidorSkt.main(null);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				} 
-//			}
-//		}.start();
 	}
 	
 }

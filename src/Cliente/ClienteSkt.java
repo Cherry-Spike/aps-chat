@@ -3,17 +3,19 @@ package Cliente;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import javax.swing.DefaultListModel;
+import com.google.gson.Gson;
 import Cliente.View.TelaChatCliente;
 import Cliente.View.TelaInicialCliente;
-import Servidor.BuscaUsuario;
 
 public class ClienteSkt {
 
 	private static Socket cliente;
+	private static Gson gson;
+	private static ClienteJson json; 
 
 	public static void main(String[] args){
 		
@@ -24,25 +26,37 @@ public class ClienteSkt {
 			cliente = new Socket(IP, porta);
 			TelaChatCliente.getChat().append("Voce se conectou ao servidor!\n");
 			
-			//lendo mensagems do servidor
+			/*lendo mensagems do servidor*/
 			new Thread() {
 				@Override
 				public void run() {
 					try {
 						
 						BufferedReader leitor = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-						ObjectInputStream objEntrada = new ObjectInputStream(cliente.getInputStream());
-						BuscaUsuario buscaUsuario = new BuscaUsuario();
+						gson = new Gson();
 											
 						while(true) {
 							String mensagem = leitor.readLine();
-							TelaChatCliente.getChat().append(mensagem + "\n");
+							json = gson.fromJson(mensagem, ClienteJson.class);
+							
+							if(json.getTipo() == 1) {
+								for (String msg : json.getMensagem()) {
+									TelaChatCliente.getChat().append(msg);							
+								}
+							}else if(json.getTipo() == 2) {
+								((DefaultListModel<String>) TelaChatCliente.getClienteLi().getModel()).removeAllElements();
+								for (String msg : json.getMensagem()) {									
+									((DefaultListModel<String>) TelaChatCliente.getClienteLi().getModel()).addElement(msg);
+								}
+							}else if(json.getTipo() == 3) {
+								PrintWriter escritor = new PrintWriter(cliente.getOutputStream(), true);
+								escritor.println("teste");
+							}
+							
 							System.out.println(mensagem);
-							buscaUsuario = (BuscaUsuario) objEntrada.readObject();
-							TelaChatCliente.setClienteLi(buscaUsuario.getListaUsuario());
 						}
 						
-					} catch (IOException | ClassNotFoundException e) {
+					} catch (IOException e) {
 						TelaChatCliente.getChat().append("Nao e possivel receber a mensagem do servidor");
 						System.out.println("Nao e possivel receber a mensagem do servidor");
 						e.printStackTrace();
@@ -50,13 +64,10 @@ public class ClienteSkt {
 				}
 			}.start();
 			
-			//escrevendo mensagems para o servidor
+			/*escrevendo mensagems para o servidor*/
 			PrintWriter escritor = new PrintWriter(cliente.getOutputStream(), true); /*PRESTAR ATENCAO NO AUTOFLUSH*/
 			BufferedReader leitorDoTerminal = new BufferedReader(new InputStreamReader(System.in));
 			String msgTerminal = "";
-			
-			//buscaUsuario.setListaUsuario(TelaChatCliente.getClienteLi());
-			//buscaUsuario.adicionarNomeUsuario(msgTerminal);
 			
 			while((msgTerminal = leitorDoTerminal.readLine()) != null) {
 				escritor.println(msgTerminal);
