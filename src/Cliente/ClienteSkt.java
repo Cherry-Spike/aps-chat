@@ -3,7 +3,6 @@ package Cliente;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import javax.swing.DefaultListModel;
@@ -24,7 +23,7 @@ public class ClienteSkt {
 		
 		try {
 			cliente = new Socket(IP, porta);
-			TelaChatCliente.getChat().append("Voce se conectou ao servidor!\n");
+			TelaChatCliente.getChat().append("Voce conectou-se ao servidor!\n");
 			
 			/*lendo mensagems do servidor*/
 			new Thread() {
@@ -49,10 +48,10 @@ public class ClienteSkt {
 									((DefaultListModel<String>) TelaChatCliente.getClienteLi().getModel()).addElement(msg);
 								}
 							}else if(json.getTipo() == 3) {
-								PrintWriter escritor = new PrintWriter(cliente.getOutputStream(), true);
-								escritor.println("teste");
+								String text = json.getMensagem().get(0);
+								TelaChatCliente.getChat().append(text);	
 							}
-							
+							json = null;
 							System.out.println(mensagem);
 						}
 						
@@ -64,18 +63,6 @@ public class ClienteSkt {
 				}
 			}.start();
 			
-			/*escrevendo mensagems para o servidor*/
-			PrintWriter escritor = new PrintWriter(cliente.getOutputStream(), true); /*PRESTAR ATENCAO NO AUTOFLUSH*/
-			BufferedReader leitorDoTerminal = new BufferedReader(new InputStreamReader(System.in));
-			String msgTerminal = "";
-			
-			while((msgTerminal = leitorDoTerminal.readLine()) != null) {
-				escritor.println(msgTerminal);
-				if (msgTerminal.equalsIgnoreCase("/sair")) {
-					System.exit(0);
-				}
-			}
-			
 		}catch (UnknownHostException e){			
 			System.out.println("O endereco e invalido");
 			e.printStackTrace();			
@@ -83,5 +70,9 @@ public class ClienteSkt {
 			System.out.println("O Servidor encontra-se indisponivel");
 			e.printStackTrace();
 		}
+	}
+
+	public static Socket getCliente() {
+		return cliente;
 	}
 }

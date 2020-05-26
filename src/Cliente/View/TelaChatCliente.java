@@ -2,6 +2,11 @@ package Cliente.View;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,6 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import Cliente.ClienteSkt;
 
 public class TelaChatCliente {
 	
@@ -39,7 +46,7 @@ public class TelaChatCliente {
 		
 		chat = new JTextArea();
 		getChat().setBounds(250, 20, 650, 370);
-		getChat().setFont(new Font("Arial", Font.PLAIN, 20));
+		getChat().setFont(new Font("Arial", Font.PLAIN, 18));
 		getChat().setBorder(new LineBorder(Color.LIGHT_GRAY));
 		getChat().setEditable(false);
 		getChat().setLineWrap(true);
@@ -74,7 +81,6 @@ public class TelaChatCliente {
 		lbConx.setFont(new Font("Arial", Font.BOLD, 15));
 		
 		conectados.add(lbConx);
-		//contentPane.add(conectados);
 		
 		JScrollPane scrollConx = new JScrollPane(clienteLi);
 		scrollConx.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -88,21 +94,53 @@ public class TelaChatCliente {
 		enviar.setFont(new Font("Arial", Font.BOLD, 15));
 		contentPane.add(enviar);
 		
-		enviar.addActionListener(e -> {
-			
-			String msg = digitacao.getText();
-			
-			if(msg.isEmpty()) {
-				digitacao.setText("");
-			}else {
-				digitacao.setText("");
-				getChat().append(msg + "\n");
-			}
-				
+		/*escrevendo mensagems para o servidor*/
+		
+		enviar.addActionListener(e -> {		
+			escreverMensagem(digitacao);
 		});
+		
+		digitacao.addKeyListener(
+	            new KeyListener(){
+					@Override
+					public void keyTyped(KeyEvent e) {
+						
+					}
+					@Override
+					public void keyPressed(KeyEvent e) {
+						if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+							escreverMensagem(digitacao);
+							e.consume();
+						   }			
+					}
+					@Override
+					public void keyReleased(KeyEvent e) {
+						
+					}
+	            }
+	        );
 		    		
 		basePane.add(contentPane);
 		
+	}
+	
+	public void escreverMensagem(JTextArea digitacao) {
+		String msg = digitacao.getText();			
+		if(msg.isEmpty()) {
+			digitacao.setText("");
+		}else {
+			digitacao.setText("");
+			try {
+				if (msg.equalsIgnoreCase("/sair")) {
+					System.exit(0);
+				}
+				PrintWriter escritor = new PrintWriter(ClienteSkt.getCliente().getOutputStream(), true);
+				escritor.println(msg);
+			} catch (IOException e1) {
+				getChat().append("Nao foi possivel escrever a mensagem para o servidor\n");
+				e1.printStackTrace();
+			}
+		}
 	}
 
 	/*GET & SET*/

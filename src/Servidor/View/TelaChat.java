@@ -51,7 +51,7 @@ public class TelaChat {
 		
 		JTextArea digitacao = new JTextArea();
 		digitacao.setBounds(250, 410, 550, 110);
-		digitacao.setFont(new Font("Arial", Font.PLAIN, 20));
+		digitacao.setFont(new Font("Arial", Font.PLAIN, 18));
 		digitacao.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		digitacao.setLineWrap(true);
 		JScrollPane scrollDig = new JScrollPane(digitacao);
@@ -75,7 +75,6 @@ public class TelaChat {
 		lbConx.setFont(new Font("Arial", Font.BOLD, 15));
 		
 		conectados.add(lbConx);
-		//contentPane.add(conectados);
 		
 		JScrollPane scrollConx = new JScrollPane(liUsuarios);
 		scrollConx.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
