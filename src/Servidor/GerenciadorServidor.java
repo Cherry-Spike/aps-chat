@@ -44,7 +44,7 @@ public class GerenciadorServidor extends Thread {
 			
 			enviarMensagemGlobal(false, "***(" + this.nomeCliente + ")" + " entrou na sala!***");
 			enviarMensagem(1, "Utilize {/ajuda} sem {} para vizualizar os comandos disponiveis.\n\n" 
-							+ "Bem vindo (" + this.nomeCliente + "), digite uma mensagem!", escritor);
+							+ "Bem vindo (" + this.nomeCliente + "), digite uma mensagem!\n", escritor);
 			
 			new Thread() {
 				public void run() {
