@@ -26,5 +26,4 @@ public class ClienteJson {
 	public void setMensagem(String mensagem2) {
 		mensagem.add(mensagem2);
 	}
-	
 }
