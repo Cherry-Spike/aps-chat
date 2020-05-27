@@ -37,7 +37,6 @@ public class ClienteSkt {
 						while(true) {
 							String mensagem = leitor.readLine();
 							json = gson.fromJson(mensagem, ClienteJson.class);
-							
 							if(json.getTipo() == 1) {
 								for (String msg : json.getMensagem()) {
 									TelaChatCliente.getChat().append(msg);							
